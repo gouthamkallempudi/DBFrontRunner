@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class Login extends Component {
+class User extends Component {
 
 	constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-  	url =" "
+  	let url =" "
 
     fetch(url , { method: 'POST',  body: JSON.stringify(this.state),  headers:{ 'Content-Type': 'application/json'} })
       .then(res => res.json())
@@ -64,4 +64,4 @@ class Login extends Component {
 
 
 
-export default Login;
+export default User;
