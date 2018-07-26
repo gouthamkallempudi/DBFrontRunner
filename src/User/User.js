@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 
 class User extends Component {
 
 	constructor(props) {
     super(props);
     this.state = {
-      broker_id: " ",
-      PassWord : " ",
-      message : " "
+      id: " ",
+      password : " ",
     };
+    
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
@@ -17,32 +17,37 @@ class User extends Component {
   }
 
   handleChange1(event) {
-    this.setState({broker_id: event.target.value});
+    this.setState({id: event.target.value});
   }
 
   handleChange2(event) {
-    this.setState({PassWord : event.target.value});
+    this.setState({password : event.target.value});
   }
 
   handleSubmit(event) {
-    alert('An essay was submitted: ' + this.state.broker_id);
-    alert('An essay was submitted: ' + this.state.PassWord);
+    //alert('An essay was submitted: ' + this.state.is);
+     //alert('An essay was submitted: ' + this.state.password);
     event.preventDefault();
+    var url ="http://localhost:7777/users/login";
+    console.log(this.state.id);
+    var data = {
+     id: this.state.id,
+      password: this.state.password
+      }
+
+    axios.post( url ,  data)
+     .then(function (response) {
+    console.log(response);
+      })
+     .catch(function (error) {
+    console.log(error);
+      });
+
   }
 
   componentDidMount() {
-  	let url =" "
-
-    fetch(url , { method: 'POST',  body: JSON.stringify(this.state),  headers:{ 'Content-Type': 'application/json'} })
-      .then(res => res.json())
-      .then( (result) => { this.setState({ message : result.text() }); },
-      
-        (error) => {
-          this.setState({
-            message : "error"
-          });
-        }
-      )
+    
+  	
   }
 
 
@@ -51,8 +56,8 @@ class User extends Component {
     <div>	
       <form onSubmit={this.handleSubmit}>
 
-       BrokerId :  <input type="text" value={this.state.broker_id}  onChange={this.handleChange1}/>
-       PassWord :  <input type="text" value={this.state.PassWord}  onChange={this.handleChange2}/>
+       BrokerId :  <input type="text" value={this.state.id}  onChange={this.handleChange1}/>
+       PassWord :  <input type="text" value={this.state.pasword}  onChange={this.handleChange2}/>
         
         <input type="submit" value="Submit"/>
       </form>
